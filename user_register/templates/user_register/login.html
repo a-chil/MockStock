@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+    <div class="jumbotron row justify-content-center">
+        <h4 class="mx-auto">Log in to MockStock</h4>
+        <form class="form-group" method="post" style="width: 60%;">
+            {% csrf_token %}
+            {% load crispy_forms_tags %}
+            {{form|crispy}}
+            <button type="submit" class="btn btn-success btn-block">Log In</button>
+
+            <h6 class="pt-3">Don't have an account? Register <a href="/register">here.</a></h6>
+            <h6 class="pt-3">Forgot password? <a href="/reset_password">Reset</a></h6>
+        </form>
+    </div>
+
+{% endblock %}

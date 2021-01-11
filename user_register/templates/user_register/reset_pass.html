@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Reset Password{% endblock %}
+
+{% block content %}
+
+    <div class="jumbotron row justify-content-center">
+        <h5 class="mx-auto">Forgot your password? Enter your email to reset it!</h5>
+        <form class="form-group" method="post" style="width: 70%;">
+            {% csrf_token %}
+            {% load crispy_forms_tags %}
+            {{form|crispy}}
+            <button type="submit" class="btn btn-success btn-block">Send Email</button>
+        </form>
+    </div>
+
+{% endblock %}

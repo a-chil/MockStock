@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Confirm{% endblock %}
+
+{% block content %}
+
+    <div class="jumbotron row justify-content-center">
+        <h5 class="mx-auto">Please enter your new password twice:</h5>
+
+        <form class="form-group" method="post" style="width: 60%;">
+            {% csrf_token %}
+            {% load crispy_forms_tags %}
+            {{form|crispy}}
+            <button type="submit" class="btn btn-success btn-block">Update</button>
+        </form>
+    </div>
+
+{% endblock %}

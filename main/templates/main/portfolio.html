@@ -1,0 +1,59 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Portfolio{% endblock %}
+
+{% block content %}
+    
+
+    <div style="width: 80%;">
+        <div class="jumbotron">
+            <h3>Buy Stocks Here</h3>
+            <p>Cannot purchase ETF's due to API restrictions.</p>
+            <form action="" method="post" class="form-group">
+                {% csrf_token %}
+                {% load crispy_forms_tags %}
+                    {{form|crispy}}
+                    <button type="submit" class="btn btn-success">Buy</button>
+            </form>
+        </div>
+
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Stock</th>
+                <th scope="col">Shares</th>
+                <th scope="col">Purchase</th>
+                <th scope="col">Current</th>
+                <th scope="col">Value</th>
+                <th scope="col">Date</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for stock in stocks %}
+                <tr>
+                    <th scope="row">{{stock.name}} ({{stock.symbol}})</th>
+                    <td>{{stock.shares}}</td>
+                    <td>{{stock.price_per_stock}}</td>
+                        {% for stock_curr, price in curr_price.items %}
+                            {% if stock_curr == stock %}
+                                <td>{{price.c}}</td>
+                                {% load port_tags %}
+                                {% if price.c >= stock.price_per_stock %}
+                                    <td style="color: rgb(9, 255, 0);">{{price.c|sub:stock.price_per_stock |mult:stock.shares}}</td>
+                                
+                                {% else %}    
+                                    <td style="color:  rgb(255, 47, 47);">{{stock.price_per_stock|sub:price.c |mult:stock.shares}}</td>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    <td>{{stock.purchase_date}}</td>
+                    <td><a href="{% url 'delete_stock' stock.id %}" class="btn btn-danger">Delete</a></td>
+                </tr>
+              {% endfor %}
+          </table>
+        
+    </div>
+{% endblock %}
+
+{% block username %}{{username}}{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+    <div class="jumbotron row justify-content-center">
+        <h4 class="mx-auto">Create an account</h4>
+        <form action="" method="POST" class="form-group" style="width: 80%;">
+            {% csrf_token %}
+            {% load crispy_forms_tags %}
+            {{form|crispy}}
+            <button type="submit" class="btn btn-success btn-block">Register</button>
+
+            <h6 class="pt-3">Already have an account? Login <a href="/login">here.</a></h6>
+        </form>
+    </div>
+
+{% endblock %}

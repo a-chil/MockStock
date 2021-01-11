@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Email sent{% endblock %}
+
+{% block content %}
+
+    <div class="jumbotron row justify-content-center" style="width: 70%;">
+        <div class="alert alert-success" role="alert">
+            Password reset sent!
+        </div>
+        <div>
+                <p>
+                    An email has been sent with instructions to reset your password. If an 
+                    account exists with the email provided, you will receive the email shortly.
+                </p>
+
+                <p>
+                    If you did not receive an email, please make sure you entered the correct email
+                    and try again or check you spam.
+                </p>
+        </div>
+    </div>
+
+{% endblock %}

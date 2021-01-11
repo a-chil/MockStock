@@ -1,0 +1,164 @@
+{% extends 'main/base.html' %}
+
+{% block stockCarousel%}
+    <div id="stockCarousel" class="carousel slide mx-auto my-4" data-ride="carousel" style="width: 65%; background-color: rgb(255, 255, 255);">
+        <div class="carousel-inner" style="min-height: 5%;">
+            <div class="carousel-item active">
+            
+                <div class="d-block w-100">
+                    <p class="d-flex justify-content-center my-0">Popular ETF's </p>
+                </div>
+            
+            </div>
+            {% for etf, etf_info in pop_ETF.items %}
+            <div class="carousel-item ">
+            
+                <div class="d-block w-100">
+                    <div class="d-flex justify-content-center">
+                        
+                            <p class="my-0">{{etf_info.etf_profile.profile.name}} ({{etf_info.etf_profile.symbol}})</p>
+                            {% if etf_info.quote.c >= etf_info.quote.o %}
+                                <p class="pl-1 my-0" style="color: rgb(9, 255, 0);">{{etf_info.quote.c}}</p>
+                            {% else %}
+                                <p class="pl-1 my-0" style="color: rgb(255, 47, 47);">{{etf_info.quote.c}}</p>
+                            {% endif %}
+                       
+                    </div>
+                </div>
+            
+             </div>
+            {% endfor %}
+        </div>
+{% endblock %}
+
+{% block content %}
+    
+    
+
+    <div class="mx-auto jumbotron p-0" style="width: 70%; background-color: white;">
+
+        <hr class="mb-4 mt-1">
+
+        <h3>Enter a ticker and get company or ETF details:</h3>
+
+        <p>Stock's and ETF's have limited coverage. Some ETF's might not display all data due to API restrictions (60 API Calls/Minute).</p>
+
+        <form action="/" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{form}}
+            </div>
+            <button type="submit" class="btn btn-dark">Get Details</button>
+        </form>
+
+        <div class="ticker_info mx-auto" style="padding-top: 3%; ">
+            
+            {% if company and ticker %}
+            
+            <div class="fullInfo">
+                <div class="companyInfo">
+                    {% if company.logo %}
+                    <img src={{company.logo}} alt="Responsive image" class="img-fluid rounded mx-auto d-block">
+                    {% endif %}
+                        <ul class="list-group list-group-flush ">
+                            <li class="list-group-item">
+                                {{company.ticker}}
+                            </li>
+                            <li class="list-group-item">
+                                Name: {{company.name}}
+                            </li>
+                            <li class="list-group-item">
+                                Industry: {{company.finnhubIndustry}}
+                            </li>
+                            <li class="list-group-item">
+                                Exchange: {{company.exchange}}
+                            </li>
+                            <li class="list-group-item">
+                                Currency: {{company.currency}}
+                            </li>
+                        </ul>
+                </div>
+
+                <div class="quoteInfo">
+                    <table class="table">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col">Current</th>
+                            <th scope="col">Open</th>
+                            <th scope="col">High</th>
+                            <th scope="col">Low</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">
+                                {% if quote.c >= quote.o %}
+                                    <p style="color: rgb(9, 255, 0);">{{quote.c}}</p>
+                                {% else %}
+                                    <p style="color: rgb(255, 47, 47);">{{quote.c}}</p>
+                                {% endif %}
+                            </th>
+                            <td>{{quote.o}}</td>
+                            <td>{{quote.h}}</td>
+                            <td>{{quote.l}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+            {% elif ticker and ETF.symbol %}
+            <div>
+                <div class="ETFinfo">
+                    <ul class="list-group list-group-flush ">
+                        <li class="list-group-item">
+                            {{ETF.symbol}}
+                        </li>
+                        <li class="list-group-item">
+                            Name: {{ETF.profile.name}}
+                        </li>
+                        <li class="list-group-item">
+                            Description: {{ETF.profile.description}}
+                        </li>
+                        <li class="list-group-item">
+                            Currency: {{ETF.profile.navCurrency}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="ETFquoteInfo">
+                    <table class="table">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col">Current</th>
+                            <th scope="col">Open</th>
+                            <th scope="col">High</th>
+                            <th scope="col">Low</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">
+                                {% if quote.c >= quote.o %}
+                                    <p style="color: rgb(9, 255, 0);">{{quote.c}}</p>
+                                {% else %}
+                                    <p style="color: rgb(255, 47, 47);">{{quote.c}}</p>
+                                {% endif %}
+                            </th>
+                            <td>{{quote.o}}</td>
+                            <td>{{quote.h}}</td>
+                            <td>{{quote.l}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+            {% elif not company and ticker or not ETF and ticker %}
+            <div class="alert alert-danger" role="alert" style="width: 35vw;">
+                Sorry, this ticker does not exist! Try another ticker.
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %} 
+
+{% block username %}{{username}}{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'main/base.html' %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+
+    <div class="jumbotron mx-auto" style="width: 70%;">
+
+        <h3>About MockStock</h3>
+
+        <div>
+            <p>
+                This a project that I created to assist beginners in the stock market (like myself),
+                by having an option to quickly get quotes for stocks and also "buy" shares of certain stocks
+                upon logging in.
+            </p>
+
+            <p>
+                Market data is served by <a href="https://finnhub.io">Finnhub</a>, a free API service that provides
+                realtime stock and detailed company data.
+            </p>
+            
+            <p>
+                This website is hosted on Heroku, with an AWS PostgreSQL RDS instance.
+            </p>
+
+            <p>
+                Check out my personal page <a href="https://a-s-b-c.github.io">here.</a> Feel free to contact me if you have any questions!
+            </p>
+
+            <p>
+                Good luck!
+            </p>
+        </div>
+        
+    </div>
+
+{% endblock %}
