@@ -4,7 +4,7 @@ This a project that I created to assist beginners in the stock market (like myse
 
 Market data is served by Finnhub, a free API service that provides realtime stock and detailed company data.
 
-This website is hosted on Heroku, with an AWS PostgreSQL RDS instance.
+This website is hosted on Heroku, with an AWS PostgreSQL RDS instance. Check it out: https://mock-stock-trade.herokuapp.com
 
 Feel free to contact me if you have any questions!
 
