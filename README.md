@@ -1,4 +1,4 @@
-Website has been shut down due to maintenance costs. But you can still view the codebase here.
+Website is now inactive, but feel free to view the codebase!
 
 ----
 
